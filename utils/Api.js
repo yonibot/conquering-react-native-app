@@ -1,7 +1,8 @@
 import ApiKeys from '../ApiKeys'
+import ApiUtils from './ApiUtils'
 
 var Api = {
-  loginUser: function(email, password) {
+  login: function(email, password) {
     return fetch(ApiKeys.loginUrl, {
       method: 'POST',
       headers: {
@@ -15,6 +16,17 @@ var Api = {
         }
       })
     })
+  },
+  getItems: function(token) {
+    return fetch(ApiKeys.itemsUrl, {
+      method: 'GET',
+      headers: {
+        'AUTH-TOKEN': token
+      }
+    })
+    .then(ApiUtils.checkStatus)
+    .then(r => r.json())
+    .catch(e => e)
   }
 };
 

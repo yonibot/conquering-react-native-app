@@ -2,6 +2,7 @@ import React from 'react-native';
 import ApiKeys from '../ApiKeys';
 import Login from './Login';
 import ApiUtils from '../utils/ApiUtils';
+import Api from '../utils/Api'
 
 var {
   Text,
@@ -10,24 +11,6 @@ var {
   ListView,
   StyleSheet,
 } = React;
-
-var styles = StyleSheet.create({
-  listStyle: {
-    paddingTop: 25,
-    backgroundColor: '#324B66'
-  },
-  item: {
-    fontSize: 25,
-    color: 'white',
-    paddingTop: 10,
-    paddingBottom: 6,
-    paddingLeft: 5
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#47729E'
-  }
-});
 
 class TodoList extends React.Component{
   constructor(props) {
@@ -41,25 +24,21 @@ class TodoList extends React.Component{
   }
 
   componentDidMount() {
-    if (this.props.userToken) {
-      this.attemptToFetchItems(this.props.userToken);
-    } else {
-      AsyncStorage.getItem("TodoList:UserToken")
-      .then(token => {
-        if (token) {
-          this.attemptToFetchItems(token)
-        } else {
-          this.redirectToLogin()
-        }
-      })
-    }
+    AsyncStorage.getItem("TodoList:UserToken")
+    .then(token => {
+      if (token) {
+        this.attemptToFetchItems(token)
+      } else {
+        this.redirectToLogin()
+      }
+    })
   }
 
   attemptToFetchItems(token) {
-      this.fetchApi(token)
+      Api.getItems(token)
       .then(r => {
         if (r instanceof Error) {
-          AsyncStorage.removeItem("TodoList:UserToken")
+          AsyncStorage.removeItem("TodoList:UserToken");
           this.redirectToLogin();
         } else {
           this.setState({
@@ -73,18 +52,6 @@ class TodoList extends React.Component{
     this.props.navigator.push({
       component: Login
     });
-  }
-
-  fetchApi(token) {
-    return fetch(ApiKeys.itemsUrl, {
-      method: 'GET',
-      headers: {
-        'AUTH-TOKEN': token
-      }
-    })
-    .then(ApiUtils.checkStatus)
-    .then(r => r.json())
-    .catch(e => e)
   }
 
   renderItem(item) {
@@ -106,5 +73,23 @@ class TodoList extends React.Component{
     )
   }
 }
+
+var styles = StyleSheet.create({
+  listStyle: {
+    paddingTop: 25,
+    backgroundColor: '#324B66'
+  },
+  item: {
+    fontSize: 25,
+    color: 'white',
+    paddingTop: 10,
+    paddingBottom: 6,
+    paddingLeft: 5
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#47729E'
+  }
+});
 
 export { TodoList as default };

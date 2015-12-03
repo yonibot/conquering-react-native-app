@@ -12,6 +12,58 @@ var {
   AsyncStorage
 } = React;
 
+class Login extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: 'jimfox@example.com',
+      password: '123123123',
+      flash: ''
+    }
+  }
+
+  loginUser() {
+    Api.login(this.state.email, this.state.password)
+      .then(ApiUtils.checkStatus)
+      .then(r => r.json())
+      .then(r => {
+        AsyncStorage.setItem("TodoList:UserToken", r.user.token);
+        this.props.navigator.push({
+          component: TodoList
+        })
+      })
+      .catch(() => {
+        this.setState({flash: "Check your credentials."})
+      });
+  }
+
+  render() {
+    return (
+      <View style={styles.mainContainer}>
+        <Text style={styles.flash}>{this.state.flash}</Text>
+        <Text style={styles.title}>Please sign in.</Text>
+        <TextInput
+          style={styles.inputItem}
+          value={this.state.email}
+          onChangeText={(email) => this.setState({email})}
+          />
+        <TextInput
+          style={styles.inputItem}
+          value={this.state.password}
+          onChangeText={(pass) => this.setState({password: pass})}
+          secureTextEntry={true}
+          />
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.loginUser.bind(this)}
+            underlayColor="white">
+            <Text style={styles.buttonText}>Sign In</Text>
+          </TouchableHighlight>
+      </View>
+    )
+  }
+}
+
 
 var styles = StyleSheet.create({
   mainContainer: {
@@ -63,58 +115,5 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
 });
-
-class Login extends React.Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: 'jimfox@example.com',
-      password: '123123123',
-      flash: ''
-    }
-  }
-
-  loginUser() {
-    Api.loginUser(this.state.email, this.state.password)
-      .then(ApiUtils.checkStatus)
-      .then(r => r.json())
-      .then(r => {
-        console.log("token: ", r.user.token);
-        AsyncStorage.setItem("TodoList:UserToken", r.user.token);
-        this.props.navigator.push({
-          component: TodoList
-        })
-      })
-      .catch(() => {
-        this.setState({flash: "Check your credentials."})
-      });
-  }
-
-  render() {
-    return (
-      <View style={styles.mainContainer}>
-        <Text style={styles.flash}>{this.state.flash}</Text>
-        <Text style={styles.title}>Please sign in.</Text>
-        <TextInput
-          style={styles.inputItem}
-          value={this.state.email}
-          onChangeText={(email) => this.setState({email})}
-          />
-        <TextInput
-          style={styles.inputItem}
-          value={this.state.password}
-          onChangeText={(pass) => this.setState({password: pass})}
-          secureTextEntry={true}
-          />
-          <TouchableHighlight
-            style={styles.button}
-            onPress={this.loginUser.bind(this)}
-            underlayColor="white">
-            <Text style={styles.buttonText}>Sign In</Text>
-          </TouchableHighlight>
-      </View>
-    )
-  }
-}
 
 export { Login as default };

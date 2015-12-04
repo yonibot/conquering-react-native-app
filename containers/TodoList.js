@@ -1,8 +1,10 @@
 import React from 'react-native';
 import ApiKeys from '../ApiKeys';
 import Login from './Login';
+import LogoutFooter from '../components/LogoutFooter'
 import ApiUtils from '../utils/ApiUtils';
 import Api from '../utils/Api'
+import Colours from '../utils/Colours'
 
 var {
   Text,
@@ -12,6 +14,7 @@ var {
   StyleSheet,
   TextInput,
   TouchableHighlight,
+  Image,
 } = React;
 
 class TodoList extends React.Component{
@@ -60,32 +63,48 @@ class TodoList extends React.Component{
   addTodo() {
     let { token, todo } = this.state;
     Api.addItem(token, todo)
-    .then(this.attemptToFetchItems.bind(this, token))
+      .then(this.attemptToFetchItems.bind(this, token))
     this.setState({todo: ''})
   }
 
   toggleCompleted(todo) {
     let { token } = this.state;
     Api.toggleCompleted(token, todo.id, !todo.completed)
-    .then(this.attemptToFetchItems.bind(this, token))
+      .then(this.attemptToFetchItems.bind(this, token));
   }
 
-  renderItem(item) {
-    return (
-        <View>
-          <Text
-            style={[styles.item, item.completed && styles.completedItem]}
-            onPress={this.toggleCompleted.bind(this, item)}>
-            {item.content}
-          </Text>
-          <View style={styles.separator}></View>
-        </View>
-    );
+  deleteItem(todo) {
+    let { token } = this.state;
+    Api.deleteItem(token, todo.id)
+      .then(this.attemptToFetchItems.bind(this, token));
   }
 
   logout() {
     AsyncStorage.removeItem("TodoList:UserToken")
     .then(this.redirectToLogin.bind(this))
+  }
+
+  renderItem(item) {
+    return (
+        <View>
+          <View style={styles.listItem}>
+            <Text
+              style={[styles.itemText, item.completed && styles.completedItemText]}
+              onPress={this.toggleCompleted.bind(this, item)}>
+              {item.content}
+            </Text>
+            <TouchableHighlight
+              onPress={this.deleteItem.bind(this, item)}
+              underlayColor={'#324B66'}>
+              <Image
+              style={styles.icon}
+              source={{uri: 'https://cdn0.iconfinder.com/data/icons/ikooni-outline-free-basic/128/free-27-32.png'}}
+              />
+            </TouchableHighlight>
+          </View>
+          <View style={styles.separator}></View>
+        </View>
+    );
   }
 
   render() {
@@ -108,12 +127,7 @@ class TodoList extends React.Component{
           dataSource={this.state.dataSource}
           renderRow={this.renderItem.bind(this)}
           />
-        <TouchableHighlight
-          onPress={this.logout.bind(this)}
-          style={styles.logoutFooter}
-          underlayColor={'grey'}>
-          <Text style={styles.logoutText}>Logout</Text>
-        </TouchableHighlight>
+        <LogoutFooter logout={this.logout.bind(this)} />
       </View>
     )
   }
@@ -154,14 +168,25 @@ var styles = StyleSheet.create({
     backgroundColor: '#324B66',
     flex: 1
   },
-  item: {
+  listItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: 20,
+    paddingTop: 10,
+    paddingBottom: 12,
+  },
+  icon: {
+    width: 25,
+    height: 25,
+  },
+  itemText: {
     fontSize: 20,
     color: 'white',
-    paddingTop: 10,
-    paddingBottom: 6,
-    paddingLeft: 5
+    paddingLeft: 5,
+    flex: 0.5
   },
-  completedItem: {
+  completedItemText: {
     textDecorationLine: 'line-through',
     textDecorationColor: 'black'
   },
@@ -169,15 +194,6 @@ var styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#47729E'
   },
-  logoutFooter: {
-    flex: 0.05,
-    backgroundColor: '#879743',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  logoutText: {
-    color: 'white'
-  }
 });
 
 export { TodoList as default };

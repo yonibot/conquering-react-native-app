@@ -77,6 +77,16 @@ var Api = {
     })
     .then(ApiUtils.checkStatus)
     .catch(e => e)
+  },
+  deleteItem: function(token, todoId) {
+    return fetch(`${ApiKeys.itemsUrl}/${todoId}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'AUTH-TOKEN': token
+      }
+    })
   }
 };
 

@@ -2,7 +2,6 @@ import React from 'react-native';
 import Api from '../utils/Api';
 import ApiUtils from '../utils/ApiUtils'
 import TodoList from './TodoList'
-import Register from './Register'
 
 var {
   Text,
@@ -13,7 +12,7 @@ var {
   AsyncStorage
 } = React;
 
-class Login extends React.Component{
+class Register extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -23,8 +22,8 @@ class Login extends React.Component{
     }
   }
 
-  loginUser() {
-    Api.login(this.state.email, this.state.password)
+  registerUser() {
+    Api.register(this.state.email, this.state.password)
       .then(ApiUtils.checkStatus)
       .then(r => r.json())
       .then(r => {
@@ -34,22 +33,15 @@ class Login extends React.Component{
         })
       })
       .catch(() => {
-        this.setState({flash: "Please check your credentials."})
+        this.setState({flash: "Please try again."})
       });
-  }
-
-  register() {
-    this.props.navigator.push({
-      component: Register
-    });
   }
 
   render() {
     return (
       <View style={styles.mainContainer}>
         <Text style={styles.flash}>{this.state.flash}</Text>
-        <Text style={styles.title}>Sign in</Text>
-        <Text style={styles.titleTwo}>or <Text style={styles.registerText} onPress={this.register.bind(this)}>register</Text></Text>
+        <Text style={styles.title}>Create a New Account</Text>
         <TextInput
           style={styles.inputItem}
           placeholder={'joe@example.com'}
@@ -63,7 +55,7 @@ class Login extends React.Component{
           />
           <TouchableHighlight
             style={styles.button}
-            onPress={this.loginUser.bind(this)}
+            onPress={this.registerUser.bind(this)}
             underlayColor="white">
             <Text style={styles.buttonText}>Sign In</Text>
           </TouchableHighlight>
@@ -91,13 +83,8 @@ var styles = StyleSheet.create({
   title: {
     fontSize: 25,
     textAlign: 'center',
-    color: 'white'
-  },
-  titleTwo: {
-    marginBottom: 40,
-    fontSize: 25,
-    textAlign: 'center',
-    color: 'white'
+    color: 'white',
+    marginBottom: 50
   },
   registerText: {
     color: '#879743',
@@ -133,4 +120,4 @@ var styles = StyleSheet.create({
   },
 });
 
-export { Login as default };
+export { Register as default };

@@ -17,6 +17,21 @@ var Api = {
       })
     })
   },
+  register: function(email, password) {
+    return fetch(ApiKeys.usersUrl, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: {
+          email,
+          password
+        }
+      })
+    })
+  },
   getItems: function(token) {
     return fetch(ApiKeys.itemsUrl, {
       method: 'GET',
@@ -26,6 +41,41 @@ var Api = {
     })
     .then(ApiUtils.checkStatus)
     .then(r => r.json())
+    .catch(e => e)
+  },
+  addItem: function(token, todo) {
+    return fetch(ApiKeys.itemsUrl, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'AUTH-TOKEN': token
+      },
+      body: JSON.stringify({
+        item: {
+          content: todo,
+          completed: false
+        }
+      })
+    })
+    .then(ApiUtils.checkStatus)
+    .catch(e => e)
+  },
+  toggleCompleted: function(token, todoId, completed) {
+    return fetch(`${ApiKeys.itemsUrl}/${todoId}`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'AUTH-TOKEN': token
+      },
+      body: JSON.stringify({
+        item: {
+          completed
+        }
+      })
+    })
+    .then(ApiUtils.checkStatus)
     .catch(e => e)
   }
 };

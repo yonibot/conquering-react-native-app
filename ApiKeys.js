@@ -1,4 +1,4 @@
-const apiUrl = "https://todosapi-rails.herokuapp.com"
+const apiUrl = "http://localhost:3000"
 
 const ApiKeys = {
   usersUrl: `${apiUrl}/users`,

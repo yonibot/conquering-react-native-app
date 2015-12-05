@@ -20,6 +20,10 @@ class LogoutFooter extends React.Component{
   }
 }
 
+LogoutFooter.propTypes = {
+  logout: React.PropTypes.func.isRequired
+}
+
 var styles = StyleSheet.create({
   logoutFooter: {
     flex: 0.05,

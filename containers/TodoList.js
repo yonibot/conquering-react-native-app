@@ -5,6 +5,7 @@ import LogoutFooter from '../components/LogoutFooter'
 import ApiUtils from '../utils/ApiUtils';
 import Api from '../utils/Api'
 import Colours from '../utils/Colours'
+import TodoForm from '../components/TodoForm'
 
 var {
   Text,
@@ -84,6 +85,10 @@ class TodoList extends React.Component{
     .then(this.redirectToLogin.bind(this))
   }
 
+  updateTodo(todo) {
+    this.setState({todo})
+  }
+
   renderItem(item) {
     return (
         <View>
@@ -110,18 +115,10 @@ class TodoList extends React.Component{
   render() {
     return (
       <View style={styles.todoListPage}>
-        <View style={styles.addTodoForm}>
-          <TextInput
-            style={styles.inputItem}
-            onChangeText={(todo) => this.setState({todo})}
-            value={this.state.todo}>
-          </TextInput>
-          <TouchableHighlight
-            style={styles.button}
-            onPress={this.addTodo.bind(this)}>
-            <Text style={styles.buttonText}>Add</Text>
-          </TouchableHighlight>
-        </View>
+        <TodoForm
+          addTodo={this.addTodo.bind(this)}
+          onUpdate={this.updateTodo.bind(this)}
+          todo={this.state.todo} />
         <ListView
           style={styles.listStyle}
           dataSource={this.state.dataSource}
@@ -136,33 +133,6 @@ class TodoList extends React.Component{
 var styles = StyleSheet.create({
   todoListPage: {
     flex: 1,
-  },
-  addTodoForm: {
-    flexDirection: 'row',
-    marginTop: 20,
-    justifyContent: 'space-between',
-    backgroundColor: '#47729E'
-  },
-  inputItem: {
-    flex: 1,
-    fontSize: 23,
-    paddingLeft: 5,
-    borderWidth: 1,
-    borderColor: 'white',
-    color: 'white',
-  },
-  button: {
-    height: 50,
-    width: 100,
-    backgroundColor: '#324B66',
-    borderColor: 'white',
-    borderWidth: 1,
-    justifyContent: 'center'
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 20,
-    alignSelf: 'center'
   },
   listStyle: {
     backgroundColor: '#324B66',

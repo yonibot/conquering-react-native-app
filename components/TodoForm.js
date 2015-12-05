@@ -37,9 +37,9 @@ TodoForm.propTypes = {
 var styles = StyleSheet.create({
   addTodoForm: {
     flexDirection: 'row',
-    marginTop: 20,
     justifyContent: 'space-between',
-    backgroundColor: '#47729E'
+    backgroundColor: '#47729E',
+    alignItems: 'center'
   },
   inputItem: {
     flex: 1,

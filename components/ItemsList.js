@@ -73,8 +73,7 @@ var styles = StyleSheet.create({
     flex: 0.5
   },
   completedItemText: {
-    textDecorationLine: 'line-through',
-    textDecorationColor: 'black'
+    color: '#47729E'
   },
   separator: {
     height: 1,

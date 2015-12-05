@@ -4,49 +4,43 @@
  */
 'use strict';
 
-var React = require('react-native');
+import React from 'react-native';
+import TodoList from './containers/TodoList';
+import Login from './containers/Login';
+
 var {
   AppRegistry,
   StyleSheet,
   Text,
   View,
+  Navigator,
+  AsyncStorage,
 } = React;
 
-var AsyncStorageTest = React.createClass({
-  render: function() {
+class AsyncStorageTest extends React.Component{
+  renderScene(route, navigator) {
+    var Component = route.component;
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <Component {...route.props} navigator={navigator} route={route} />
     );
   }
-});
+
+  render() {
+    return (
+        <Navigator
+          style={styles.container}
+          initialRoute={{component: TodoList, index: 0}}
+          renderScene={this.renderScene}
+          />
+    );
+  }
+}
 
 var styles = StyleSheet.create({
-  container: {
+  container:{
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    backgroundColor: 'white'
+  }
 });
 
 AppRegistry.registerComponent('AsyncStorageTest', () => AsyncStorageTest);

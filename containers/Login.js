@@ -31,7 +31,8 @@ class Login extends React.Component{
       .then(r => {
         AsyncStorage.setItem("TodoList:UserToken", r.user.token);
         this.props.navigator.push({
-          component: TodoList
+          component: TodoList,
+          title: "Todo List"
         })
       })
       .catch(() => {
@@ -41,7 +42,8 @@ class Login extends React.Component{
 
   register() {
     this.props.navigator.push({
-      component: Register
+      component: Register,
+      title: "Register"
     });
   }
 

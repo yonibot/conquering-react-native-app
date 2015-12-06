@@ -57,7 +57,8 @@ class TodoList extends React.Component{
 
   redirectToLogin() {
     this.props.navigator.push({
-      component: Login
+      component: Login,
+      title: "Sign in"
     });
   }
 

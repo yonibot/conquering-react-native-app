@@ -30,9 +30,10 @@ class Login extends React.Component{
       .then(r => r.json())
       .then(r => {
         AsyncStorage.setItem("TodoList:UserToken", r.user.token);
-        this.props.navigator.push({
-          component: TodoList
-        })
+        this.props.toRoute({
+          name: "TodoList",
+          component: TodoList,
+        });
       })
       .catch(() => {
         this.setState({flash: "Please check your credentials."})
@@ -40,7 +41,8 @@ class Login extends React.Component{
   }
 
   register() {
-    this.props.navigator.push({
+    this.props.toRoute({
+      name: "Register",
       component: Register
     });
   }
@@ -71,7 +73,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#324B66'
   },
   flash: {
-    marginBottom: 40,
+    marginBottom: 20,
     fontSize: 25,
     textAlign: 'center',
     color: '#879743'

@@ -29,9 +29,10 @@ class Register extends React.Component{
       .then(r => r.json())
       .then(r => {
         AsyncStorage.setItem("TodoList:UserToken", r.user.token);
-        this.props.navigator.push({
+        this.props.toRoute({
+          name: "TodoList",
           component: TodoList
-        })
+        });
       })
       .catch(() => {
         this.setState({flash: "Please try again."})
@@ -58,7 +59,6 @@ var styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     padding: 30,
-    marginTop: 20,
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: '#324B66'

@@ -27,7 +27,7 @@ LogoutFooter.propTypes = {
 var styles = StyleSheet.create({
   logoutFooter: {
     flex: 0.1,
-    backgroundColor: Colours.cokeFuzz,
+    backgroundColor: Colours.cokeFizz,
     justifyContent: 'center',
     alignItems: 'center'
   },

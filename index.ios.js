@@ -7,39 +7,37 @@
 import React from 'react-native';
 import TodoList from './containers/TodoList';
 import Login from './containers/Login';
+import Router from 'gb-native-router';
+import Colours from './utils/Colours'
 
 var {
   AppRegistry,
   StyleSheet,
   Text,
   View,
-  Navigator,
   AsyncStorage,
 } = React;
 
 class AsyncStorageTest extends React.Component{
-  renderScene(route, navigator) {
-    var Component = route.component;
-    return (
-      <Component {...route.props} navigator={navigator} route={route} />
-    );
-  }
-
   render() {
+    var firstRoute = {
+      component: TodoList,
+      name: 'TodoList'
+    }
     return (
-        <Navigator
-          style={styles.container}
-          initialRoute={{component: TodoList, index: 0}}
-          renderScene={this.renderScene}
-          />
+      <Router
+        firstRoute={firstRoute}
+        headerStyle={styles.navBar} />
     );
   }
 }
 
 var styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
-    backgroundColor: 'white'
+  },
+  navBar: {
+    backgroundColor: Colours.cokeFizz,
   }
 });
 

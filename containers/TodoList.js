@@ -7,14 +7,13 @@ var {
   ListView,
 } = React;
 
-
-class TodoList extends React.Component{
-
 var dummyTodos = [
   {content: "Learn ES6"},
   {content: "I <3 React Native!"},
   {content: "Build a great app!"}
 ];
+
+class TodoList extends React.Component{
 
   constructor(props) {
     super(props);

@@ -6,13 +6,13 @@ var {
   View,
   StyleSheet,
   ListView,
-  AsyncStorage
 } = React;
 
 class TodoList extends React.Component{
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
+      token: '20de3d34-5871-4e8a-b700-80af43d6f177',
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       })
@@ -20,9 +20,8 @@ class TodoList extends React.Component{
   }
 
   componentDidMount() {
-    let token = '20de3d34-5871-4e8a-b700-80af43d6f177';
     // Use our new Api.getItems method!
-    Api.getItems(token)
+    Api.getItems(this.state.token)
     .then(response => {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(response.items)
@@ -31,7 +30,6 @@ class TodoList extends React.Component{
   }
 
   toggleCompleted(todo) {
-    debugger;
     // notice the ES6 destructive assignment!
     let { token } = this.state;
     Api.toggleCompleted(token, todo.id, !todo.completed)

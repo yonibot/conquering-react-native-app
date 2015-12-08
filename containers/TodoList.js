@@ -10,13 +10,14 @@ var {
 
 class TodoList extends React.Component{
 
+var dummyTodos = [
+  {content: "Learn ES6"},
+  {content: "I <3 React Native!"},
+  {content: "Build a great app!"}
+];
+
   constructor(props) {
     super(props);
-    let dummyTodos = [
-      {content: "Learn ES6"},
-      {content: "I <3 React Native!"},
-      {content: "Build a great app!"}
-    ]
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2

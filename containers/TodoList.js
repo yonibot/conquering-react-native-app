@@ -15,8 +15,8 @@ var dummyTodos = [
 
 class TodoList extends React.Component{
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2

@@ -2,19 +2,31 @@ import React from 'react-native';
 
 var {
   ListView,
+  View,
   Text,
   StyleSheet,
-  View,
+  TouchableHighlight,
+  Image,
 } = React;
 
 class ItemsList extends React.Component{
   renderItem(item) {
+    let iconUri = 'https://cdn0.iconfinder.com/data/icons/ikooni-outline-free-basic/128/free-27-32.png'
     return (
-      <View>
-        <Text style={styles.itemText}>{item.content}</Text>
-        <View style={styles.separator}></View>
-      </View>
-    )
+        <View>
+          <View style={styles.listItem}>
+            <Text style={styles.itemText}>{item.content}</Text>
+            <TouchableHighlight
+              underlayColor={'#324B66'}>
+              <Image
+              style={styles.icon}
+              source={{uri: iconUri}}
+              />
+            </TouchableHighlight>
+          </View>
+          <View style={styles.separator}></View>
+        </View>
+    );
   }
 
   render() {
@@ -33,10 +45,23 @@ var styles = StyleSheet.create({
     backgroundColor: '#324B66',
     flex: 1
   },
+  listItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: 20,
+    paddingTop: 10,
+    paddingBottom: 12,
+  },
+  icon: {
+    width: 25,
+    height: 25,
+  },
   itemText: {
     fontSize: 20,
     color: 'white',
-    paddingLeft: 5
+    paddingLeft: 5,
+    flex: 0.5
   },
   separator: {
     height: 1,

@@ -1,5 +1,4 @@
 import ApiKeys from '../ApiKeys'
-import ApiUtils from './ApiUtils'
 
 var Api = {
   getItems: function(token) {

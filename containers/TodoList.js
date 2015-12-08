@@ -29,24 +29,11 @@ class TodoList extends React.Component{
     })
   }
 
-  toggleCompleted(todo) {
-    // notice the ES6 destructive assignment!
-    let { token } = this.state;
-    Api.toggleCompleted(token, todo.id, !todo.completed)
-  }
-
-  deleteItem(todo) {
-    let { token } = this.state;
-    Api.deleteItem(token, todo.id)
-  }
-
   render() {
     return (
       <View style={styles.todoListPage}>
         <ItemsList
-          dataSource={this.state.dataSource}
-          toggleCompleted={this.toggleCompleted.bind(this)}
-          deleteItem={this.deleteItem.bind(this)} />
+          dataSource={this.state.dataSource} />
       </View>
     )
   }

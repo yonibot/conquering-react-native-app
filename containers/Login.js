@@ -16,8 +16,8 @@ var {
 } = React;
 
 class Login extends React.Component{
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       email: undefined,
       password: undefined,

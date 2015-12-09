@@ -23,7 +23,6 @@ class TodoList extends React.Component{
   constructor() {
     super();
     this.state = {
-      items: [],
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       })

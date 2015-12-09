@@ -28,12 +28,6 @@ class TodoForm extends React.Component{
   }
 }
 
-TodoForm.propTypes = {
-  addTodo: React.PropTypes.func.isRequired,
-  onUpdate: React.PropTypes.func.isRequired,
-  todo: React.PropTypes.string
-}
-
 var styles = StyleSheet.create({
   addTodoForm: {
     flexDirection: 'row',

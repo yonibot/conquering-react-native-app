@@ -12,10 +12,9 @@ var {
 } = React;
 
 class TodoList extends React.Component{
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      token: '20de3d34-5871-4e8a-b700-80af43d6f177',
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       })
@@ -23,12 +22,30 @@ class TodoList extends React.Component{
   }
 
   componentDidMount() {
-    // Use our new Api.getItems method!
-    Api.getItems(this.state.token)
-    .then(response => {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(response.items)
-      })
+    // Step 1 - Check if there is a token
+    AsyncStorage.getItem("TodoList:UserToken")
+    .then(token => {
+      if (token) {
+        this.attemptToFetchItems(token)
+      } else {
+        this.redirectToLogin()
+      }
+    })
+  }
+
+  attemptToFetchItems(token) {
+    // Step 2 - Attempt to fetch data
+    Api.getItems(token)
+    .then(r => {
+      if (r instanceof Error) {
+        AsyncStorage.removeItem("TodoList:UserToken");
+        this.redirectToLogin();
+      } else {
+        this.setState({
+          token: token,
+          dataSource: this.state.dataSource.cloneWithRows(r.items)
+        })
+      }
     })
   }
 

@@ -10,7 +10,8 @@ var {
   TouchableHighlight,
   TextInput,
   StyleSheet,
-  AsyncStorage
+  AsyncStorage,
+  ToastAndroid,
 } = React;
 
 class Register extends React.Component{
@@ -33,6 +34,7 @@ class Register extends React.Component{
           name: "TodoList",
           component: TodoList
         });
+        ToastAndroid.show("Login Successful.", ToastAndroid.SHORT);
       })
       .catch(() => {
         this.setState({flash: "Please try again."})

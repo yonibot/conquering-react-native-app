@@ -16,11 +16,12 @@ var {
   TextInput,
   TouchableHighlight,
   ListView,
+  ToastAndroid,
 } = React;
 
 class TodoList extends React.Component{
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       items: [],
       dataSource: new ListView.DataSource({
@@ -60,6 +61,7 @@ class TodoList extends React.Component{
       name: "Sign in",
       component: Login
     });
+    ToastAndroid.show("User logged out.", ToastAndroid.SHORT);
   }
 
   addTodo() {

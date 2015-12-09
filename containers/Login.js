@@ -11,7 +11,8 @@ var {
   TouchableHighlight,
   TextInput,
   StyleSheet,
-  AsyncStorage
+  AsyncStorage,
+  ToastAndroid,
 } = React;
 
 class Login extends React.Component{
@@ -34,6 +35,7 @@ class Login extends React.Component{
           name: "TodoList",
           component: TodoList,
         });
+        ToastAndroid.show("Login successful.", ToastAndroid.SHORT);
       })
       .catch(() => {
         this.setState({flash: "Please check your credentials."})

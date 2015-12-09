@@ -11,6 +11,7 @@ import Colours from './utils/Colours'
 
 var {
   AppRegistry,
+  StyleSheet,
 } = React;
 
 class AsyncStorageTest extends React.Component{

@@ -2,8 +2,8 @@ import React from 'react-native';
 import Api from '../utils/Api';
 import ApiUtils from '../utils/ApiUtils'
 import TodoList from './TodoList'
-import Register from './Register'
 import AuthForm from '../components/AuthForm'
+import Register from './Register'
 
 var {
   Text,
@@ -11,12 +11,12 @@ var {
   TouchableHighlight,
   TextInput,
   StyleSheet,
-  AsyncStorage
+  AsyncStorage,
 } = React;
 
 class Login extends React.Component{
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       email: undefined,
       password: undefined,

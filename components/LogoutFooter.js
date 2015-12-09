@@ -13,7 +13,7 @@ class LogoutFooter extends React.Component{
       <TouchableHighlight
         onPress={this.props.logout}
         style={styles.logoutFooter}
-        underlayColor={'grey'}>
+        underlayColor='grey'>
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableHighlight>
     )

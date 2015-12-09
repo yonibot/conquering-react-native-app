@@ -1,16 +1,19 @@
 import React from 'react-native';
 import ItemsList from '../components/ItemsList'
 import Api from '../utils/Api'
+import LogoutFooter from '../components/LogoutFooter'
+import Login from './Login';
 
 var {
   View,
   StyleSheet,
   ListView,
+  AsyncStorage,
 } = React;
 
 class TodoList extends React.Component{
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       token: '20de3d34-5871-4e8a-b700-80af43d6f177',
       dataSource: new ListView.DataSource({
@@ -40,6 +43,18 @@ class TodoList extends React.Component{
     Api.deleteItem(token, todo.id)
   }
 
+  logout() {
+    AsyncStorage.removeItem("TodoList:UserToken")
+    .then(this.redirectToLogin.bind(this))
+  }
+
+  redirectToLogin() {
+    this.props.replaceRoute({
+      name: "Sign in",
+      component: Login
+    });
+  }
+
   render() {
     return (
       <View style={styles.todoListPage}>
@@ -47,6 +62,7 @@ class TodoList extends React.Component{
           dataSource={this.state.dataSource}
           toggleCompleted={this.toggleCompleted.bind(this)}
           deleteItem={this.deleteItem.bind(this)} />
+        <LogoutFooter logout={this.logout.bind(this)} />
       </View>
     )
   }

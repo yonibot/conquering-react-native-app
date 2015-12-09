@@ -14,8 +14,8 @@ var {
 } = React;
 
 class Register extends React.Component{
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       email: undefined,
       password: undefined,

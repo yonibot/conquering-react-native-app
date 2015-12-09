@@ -1,6 +1,7 @@
 import React from 'react-native';
 import ItemsList from '../components/ItemsList'
 import Api from '../utils/Api'
+import TodoForm from '../components/TodoForm'
 
 var {
   View,
@@ -40,9 +41,23 @@ class TodoList extends React.Component{
     Api.deleteItem(token, todo.id)
   }
 
+  addTodo() {
+    let { token, todo } = this.state;
+    Api.addItem(token, todo)
+    this.setState({todo: ''})
+  }
+
+  updateTodo(todo) {
+    this.setState({todo})
+  }
+
   render() {
     return (
       <View style={styles.todoListPage}>
+        <TodoForm
+          addTodo={this.addTodo.bind(this)}
+          onUpdate={this.updateTodo.bind(this)}
+          todo={this.state.todo} />
         <ItemsList
           dataSource={this.state.dataSource}
           toggleCompleted={this.toggleCompleted.bind(this)}

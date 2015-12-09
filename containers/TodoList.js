@@ -3,6 +3,7 @@ import ItemsList from '../components/ItemsList'
 import Api from '../utils/Api'
 import LogoutFooter from '../components/LogoutFooter'
 import Login from './Login';
+import TodoForm from '../components/TodoForm'
 
 var {
   View,
@@ -53,11 +54,13 @@ class TodoList extends React.Component{
     // notice the ES6 destructive assignment!
     let { token } = this.state;
     Api.toggleCompleted(token, todo.id, !todo.completed)
+    .then(this.attemptToFetchItems.bind(this, token));
   }
 
   deleteItem(todo) {
     let { token } = this.state;
     Api.deleteItem(token, todo.id)
+    .then(this.attemptToFetchItems.bind(this, token));
   }
 
   logout() {
@@ -72,9 +75,24 @@ class TodoList extends React.Component{
     });
   }
 
+  updateTodo(todo) {
+    this.setState({todo})
+  }
+
+  addTodo() {
+    let { token, todo } = this.state;
+    Api.addItem(token, todo)
+      .then(this.attemptToFetchItems.bind(this, token))
+    this.setState({todo: ''})
+  }
+
   render() {
     return (
       <View style={styles.todoListPage}>
+        <TodoForm
+          addTodo={this.addTodo.bind(this)}
+          onUpdate={this.updateTodo.bind(this)}
+          todo={this.state.todo} />
         <ItemsList
           dataSource={this.state.dataSource}
           toggleCompleted={this.toggleCompleted.bind(this)}

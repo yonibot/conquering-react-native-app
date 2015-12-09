@@ -17,6 +17,22 @@ var Api = {
       })
     })
   },
+  addItem: function(token, todo) {
+    return fetch(ApiKeys.itemsUrl, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'AUTH-TOKEN': token
+      },
+      body: JSON.stringify({
+        item: {
+          content: todo,
+          completed: false
+        }
+      })
+    })
+  },
   getItems: function(token) {
     return fetch(ApiKeys.itemsUrl, {
       method: 'GET',

@@ -35,7 +35,7 @@ class TodoList extends React.Component{
 
 var styles = StyleSheet.create({
   todoListPage: {
-    /* Remember! Css styles in React-Native are in camelCase
+    /* Remember! CSS styles in React-Native are in camelCase
    and not hyphenated, like they are usually. */
     flex: 1,
   },

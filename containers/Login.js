@@ -13,6 +13,7 @@ var {
   StyleSheet,
   AsyncStorage,
   ToastAndroid,
+  Platform,
 } = React;
 
 class Login extends React.Component{
@@ -35,7 +36,9 @@ class Login extends React.Component{
           name: "TodoList",
           component: TodoList,
         });
-        ToastAndroid.show("Login successful.", ToastAndroid.SHORT);
+        if (Platform.OS === 'android') {
+          ToastAndroid.show("Login successful.", ToastAndroid.SHORT);
+        }
       })
       .catch(() => {
         this.setState({flash: "Please check your credentials."})

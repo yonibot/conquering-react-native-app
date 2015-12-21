@@ -17,6 +17,7 @@ var {
   TouchableHighlight,
   ListView,
   ToastAndroid,
+  Platform,
 } = React;
 
 class TodoList extends React.Component{
@@ -60,7 +61,9 @@ class TodoList extends React.Component{
       name: "Sign in",
       component: Login
     });
-    ToastAndroid.show("User logged out.", ToastAndroid.SHORT);
+    if (Platform.OS === 'android') {
+      ToastAndroid.show("User logged out.", ToastAndroid.SHORT);
+    }
   }
 
   addTodo() {

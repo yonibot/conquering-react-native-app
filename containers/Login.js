@@ -32,13 +32,13 @@ class Login extends React.Component{
       .then(r => r.json())
       .then(r => {
         AsyncStorage.setItem("TodoList:UserToken", r.user.token);
+        if (Platform.OS === 'android') {
+          ToastAndroid.show("Login successful.", ToastAndroid.SHORT);
+        }
         this.props.toRoute({
           name: "TodoList",
           component: TodoList,
         });
-        if (Platform.OS === 'android') {
-          ToastAndroid.show("Login successful.", ToastAndroid.SHORT);
-        }
       })
       .catch(() => {
         this.setState({flash: "Please check your credentials."})

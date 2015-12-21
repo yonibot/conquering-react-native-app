@@ -28,7 +28,7 @@ class AuthForm extends React.Component{
           style={styles.button}
           onPress={onSubmit}
           underlayColor="white">
-          <Text style={styles.buttonText}>Sign In</Text>
+          <Text style={styles.buttonText}>Submit</Text>
         </TouchableHighlight>
       </View>
     )

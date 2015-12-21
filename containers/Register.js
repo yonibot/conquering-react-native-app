@@ -31,13 +31,13 @@ class Register extends React.Component{
       .then(r => r.json())
       .then(r => {
         AsyncStorage.setItem("TodoList:UserToken", r.user.token);
+        if (Platform.OS === 'android') {
+          ToastAndroid.show("Registration Successful.", ToastAndroid.SHORT);
+        }
         this.props.toRoute({
           name: "TodoList",
           component: TodoList
         });
-        if (Platform.OS === 'android') {
-          ToastAndroid.show("Login Successful.", ToastAndroid.SHORT);
-        }
       })
       .catch(() => {
         this.setState({flash: "Please try again."})
@@ -79,10 +79,6 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     marginBottom: 50
-  },
-  registerText: {
-    color: '#879743',
-    textDecorationLine: 'underline'
   },
 });
 

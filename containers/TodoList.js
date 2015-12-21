@@ -57,13 +57,13 @@ class TodoList extends React.Component{
   }
 
   redirectToLogin() {
+    if (Platform.OS === 'android') {
+      ToastAndroid.show("User logged out.", ToastAndroid.SHORT);
+    }
     this.props.replaceRoute({
       name: "Sign in",
       component: Login
     });
-    if (Platform.OS === 'android') {
-      ToastAndroid.show("User logged out.", ToastAndroid.SHORT);
-    }
   }
 
   addTodo() {

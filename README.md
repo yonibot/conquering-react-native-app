@@ -1,6 +1,6 @@
 # Companion App for Conquering React Native
 
-Buy [Conquering React Native here.](https://gumroad.com/l/conqueringreactnative)
+[![Conquering React Native](http://s3.postimg.org/x8fw2nzo3/helmet_with_background.png)](https://gumroad.com/l/conqueringreactnative)
 
 This is the companion app for [Conquering React Native](http://www.conqueringreactnative.com/), a book that I wrote to help people get up to speed in React Native. If you find this repo useful and want to learn more, I would be glad if you stopped by my [eBook store](https://gumroad.com/l/conqueringreactnative) and purchased your very own copy :)
 

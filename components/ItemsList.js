@@ -15,7 +15,10 @@ class ItemsList extends React.Component{
     return (
         <View>
           <View style={styles.listItem}>
-            <Text style={styles.itemText}>{item.content}</Text>
+            <Text
+              style={[styles.itemText, item.completed && styles.completedItemText]}>
+              {item.content}
+            </Text>
             <TouchableHighlight
               underlayColor={'#324B66'}>
               <Image
@@ -62,6 +65,9 @@ var styles = StyleSheet.create({
     color: 'white',
     paddingLeft: 5,
     flex: 0.5
+  },
+  completedItemText: {
+    color: '#47729E'
   },
   separator: {
     height: 1,

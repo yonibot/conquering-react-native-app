@@ -15,7 +15,8 @@ class ItemsList extends React.Component{
     return (
         <View>
           <View style={styles.listItem}>
-            <Text style={[styles.itemText, item.completed && styles.completedItemText]}>
+            <Text
+              style={[styles.itemText, item.completed && styles.completedItemText]}>
               {item.content}
             </Text>
             <TouchableHighlight

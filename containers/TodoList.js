@@ -8,9 +8,9 @@ var {
 } = React;
 
 var dummyTodos = [
-  {content: "Learn ES6"},
-  {content: "I <3 React Native!"},
-  {content: "Build a great app!"}
+  {content: "Learn ES6", completed: false},
+  {content: "I <3 React Native!", completed: true},
+  {content: "Build a great app!", completed: false}
 ];
 
 class TodoList extends React.Component{

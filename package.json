@@ -6,8 +6,8 @@
     "start": "node_modules/react-native/packager/packager.sh"
   },
   "dependencies": {
-    "fbemitter": "^2.0.0",
-    "gb-native-router": "^0.5.0",
+    "fbemitter": "^2.0.1",
+    "gb-native-router": "^0.6.0",
     "react-native": "^0.15.0",
     "react-native-store": "^0.2.1",
     "react-overlay": "^0.1.7"
